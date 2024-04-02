@@ -1,0 +1,7 @@
+keyboard
+pyopengl
+glfw
+numpy
+pillow
+pygame
+opensimplex
