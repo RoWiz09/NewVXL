@@ -61,11 +61,11 @@ class Window():
     def run():
         global instance, clock
 
-        from engine.screens.main_menu_ui import render as mmui_render
-        from engine.screens.in_game_ui import render as ugui_render
+        from engine.UiManager import UI
         from engine.input import handle as inphandle
         from engine.player import Player
-        from engine.inventory import Inventory
+
+        uiManager = UI()
 
         hot.player_instance = Player()
         _spawnpos = world.find_highest_block(0, 0)
@@ -74,7 +74,6 @@ class Window():
         hot.player_instance.pos = [_spawnpos[0] + 0.001, _spawnpos[1] + 1, _spawnpos[2] + 0.001] # small offset to trigger collisions
         last_frame_time = glfw.get_time()
 
-        hot.player_inv_instance = Inventory(36)
         # keep running the window until closed
         while not glfw.window_should_close(instance):
             glfw.poll_events()
@@ -106,7 +105,8 @@ class Window():
                 glPushMatrix()
                 glLoadIdentity()
 
-                mmui_render()
+                uiManager.RenderMenu(0)
+                uiManager.HandleInput(0)
 
                 glMatrixMode(GL_PROJECTION)
                 glPopMatrix()
@@ -143,7 +143,8 @@ class Window():
                 glPushMatrix()
                 glLoadIdentity()
 
-                ugui_render()
+                uiManager.RenderMenu(1)
+                uiManager.HandleInput(1, "e")
 
                 glMatrixMode(GL_PROJECTION)
                 glPopMatrix()

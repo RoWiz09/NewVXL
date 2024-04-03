@@ -51,13 +51,14 @@ class ImageCustom:
         return False
 
 class Image:
-    def __init__(self, x, y, xsize, ysize, color, texture_id):
+    def __init__(self, x, y, xsize, ysize, color, texture_id, click_funct):
         self.x = x
         self.y = y
         self.xsize = xsize
         self.ysize = ysize
         self.color = color
         self.texture_id = texture_id
+        self.click_funct = click_funct
     def render(self):
         glBindTexture(GL_TEXTURE_2D, self.texture_id)
 
@@ -86,3 +87,8 @@ class Image:
         if all((mx > minx, mx < maxx, my > miny, my < maxy)):
             return True
         return False
+    def clickCommand(self):
+        if self.click_funct != None:
+            self.click_funct()
+            return
+        return
